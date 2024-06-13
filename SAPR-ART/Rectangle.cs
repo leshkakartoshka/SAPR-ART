@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TestTaskSAPR_ART
 {
-    internal class Rectangle
+    public class Rectangle
     {
         public string Color { get; set; }
         public Point BotLeft { get; set; }

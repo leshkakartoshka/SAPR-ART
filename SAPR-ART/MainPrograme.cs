@@ -15,6 +15,7 @@ namespace TestTaskSAPR_ART
 {
     public class MainForm : Form
     {
+        public static Rectangle MainRectangle;
         public static ObjectId MainPolylineId;
 
         private Label labelMainRectangle;
@@ -300,7 +301,7 @@ namespace TestTaskSAPR_ART
 
             Point botLeft = new Point(botLeftX, botLeftY);
             Point topRight = new Point(topRightX, topRightY);
-            Rectangle mainRect = new Rectangle("main", botLeft, topRight);
+            MainRectangle = new Rectangle("main", botLeft, topRight);
 
             Document doc = Autodesk.AutoCAD.ApplicationServices.Core.Application.DocumentManager.MdiActiveDocument;
             Database db = doc.Database;
@@ -310,10 +311,10 @@ namespace TestTaskSAPR_ART
                 BlockTableRecord btr = (BlockTableRecord)tr.GetObject(bt[BlockTableRecord.ModelSpace], OpenMode.ForWrite);
 
                 Polyline polyline = new Polyline(4);
-                polyline.AddVertexAt(0, new Point2d(mainRect.BotLeft.X, mainRect.BotLeft.Y), 0, 0, 0);
-                polyline.AddVertexAt(1, new Point2d(mainRect.BotLeft.X, mainRect.TopRight.Y), 0, 0, 0);
-                polyline.AddVertexAt(2, new Point2d(mainRect.TopRight.X, mainRect.TopRight.Y), 0, 0, 0);
-                polyline.AddVertexAt(3, new Point2d(mainRect.TopRight.X, mainRect.BotLeft.Y), 0, 0, 0);
+                polyline.AddVertexAt(0, new Point2d(MainRectangle.BotLeft.X, MainRectangle.BotLeft.Y), 0, 0, 0);
+                polyline.AddVertexAt(1, new Point2d(MainRectangle.BotLeft.X, MainRectangle.TopRight.Y), 0, 0, 0);
+                polyline.AddVertexAt(2, new Point2d(MainRectangle.TopRight.X, MainRectangle.TopRight.Y), 0, 0, 0);
+                polyline.AddVertexAt(3, new Point2d(MainRectangle.TopRight.X, MainRectangle.BotLeft.Y), 0, 0, 0);
                 polyline.Closed = true;
 
                 polyline.ColorIndex = 23;
@@ -324,7 +325,7 @@ namespace TestTaskSAPR_ART
                 tr.Commit();
             }
 
-            MessageBox.Show($"Main Rectangle created from ({mainRect.BotLeft.X}, {mainRect.BotLeft.Y}) to ({mainRect.TopRight.X}, {mainRect.TopRight.Y})");
+            MessageBox.Show($"Main Rectangle created from ({MainRectangle.BotLeft.X}, {MainRectangle.BotLeft.Y}) to ({MainRectangle.TopRight.X}, {MainRectangle.TopRight.Y})");
         }
 
         private void buttonCrSecondRect_Click(object sender, EventArgs e)
@@ -451,10 +452,10 @@ namespace TestTaskSAPR_ART
                         {
                             Point2d pt = polyline.GetPoint2dAt(i);
 
-                            if (pt.X < minX) minX = pt.X;
-                            if (pt.Y < minY) minY = pt.Y;
-                            if (pt.X > maxX) maxX = pt.X;
-                            if (pt.Y > maxY) maxY = pt.Y;
+                            if (pt.X < minX && pt.X >= MainRectangle.BotLeft.X) minX = pt.X;
+                            if (pt.Y < minY && pt.X <= MainRectangle.TopRight.X) minY = pt.Y;
+                            if (pt.X > maxX && pt.Y >= MainRectangle.BotLeft.Y) maxX = pt.X;
+                            if (pt.Y > maxY && pt.Y <= MainRectangle.TopRight.Y) maxY = pt.Y;
                         }
 
                         points.Add(new Point(minX, minY));
