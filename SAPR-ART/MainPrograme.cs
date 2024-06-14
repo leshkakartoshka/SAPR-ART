@@ -311,6 +311,7 @@ namespace TestTaskSAPR_ART
                 BlockTableRecord btr = (BlockTableRecord)tr.GetObject(bt[BlockTableRecord.ModelSpace], OpenMode.ForWrite);
 
                 Polyline polyline = new Polyline(4);
+
                 polyline.AddVertexAt(0, new Point2d(MainRectangle.BotLeft.X, MainRectangle.BotLeft.Y), 0, 0, 0);
                 polyline.AddVertexAt(1, new Point2d(MainRectangle.BotLeft.X, MainRectangle.TopRight.Y), 0, 0, 0);
                 polyline.AddVertexAt(2, new Point2d(MainRectangle.TopRight.X, MainRectangle.TopRight.Y), 0, 0, 0);
@@ -356,7 +357,7 @@ namespace TestTaskSAPR_ART
                 polyline.AddVertexAt(2, new Point2d(secondRect.TopRight.X, secondRect.TopRight.Y), 0, 0, 0);
                 polyline.AddVertexAt(3, new Point2d(secondRect.TopRight.X, secondRect.BotLeft.Y), 0, 0, 0);
                 polyline.Closed = true;
-
+                
                 Hatch hatch = new Hatch();
                 hatch.SetDatabaseDefaults();
                 hatch.SetHatchPattern(HatchPatternType.PreDefined, "SOLID");
@@ -402,10 +403,10 @@ namespace TestTaskSAPR_ART
 
             foreach (var point in points)
             {
-                if (point.X < botLeftX) botLeftX = point.X;
-                if (point.Y < botLeftY) botLeftY = point.Y;
-                if (point.X > topRightX) topRightX = point.X;
-                if (point.Y > topRightY) topRightY = point.Y;
+                if (point.X > MainRectangle.BotLeft.X && point.X < botLeftX) botLeftX = point.X;
+                if (point.Y > MainRectangle.BotLeft.Y && point.Y < botLeftY) botLeftY = point.Y;
+                if (point.X < MainRectangle.TopRight.X && point.X > topRightX) topRightX = point.X;
+                if (point.Y < MainRectangle.TopRight.Y && point.Y > topRightY) topRightY = point.Y;
             }
 
             using (Transaction tr = db.TransactionManager.StartTransaction())
@@ -414,7 +415,6 @@ namespace TestTaskSAPR_ART
 
                 if (polyline != null)
                 {
-                    // Изменить координаты вершин полилинии
                     polyline.SetPointAt(0, new Point2d(botLeftX, botLeftY));
                     polyline.SetPointAt(1, new Point2d(botLeftX, topRightY));
                     polyline.SetPointAt(2, new Point2d(topRightX, topRightY));
@@ -441,7 +441,7 @@ namespace TestTaskSAPR_ART
                 {
                     Entity entity = tr.GetObject(objId, OpenMode.ForRead) as Entity;
 
-                    if (entity is Polyline polyline && polyline.NumberOfVertices == 4 && polyline.Closed && polyline.ColorIndex == 1)
+                    if (entity is Polyline polyline && polyline.NumberOfVertices == 4 && polyline.Closed && polyline.ObjectId != MainPolylineId)
                     {
                         double minX = double.MaxValue;
                         double minY = double.MaxValue;
@@ -452,10 +452,10 @@ namespace TestTaskSAPR_ART
                         {
                             Point2d pt = polyline.GetPoint2dAt(i);
 
-                            if (pt.X < minX && pt.X >= MainRectangle.BotLeft.X) minX = pt.X;
-                            if (pt.Y < minY && pt.X <= MainRectangle.TopRight.X) minY = pt.Y;
-                            if (pt.X > maxX && pt.Y >= MainRectangle.BotLeft.Y) maxX = pt.X;
-                            if (pt.Y > maxY && pt.Y <= MainRectangle.TopRight.Y) maxY = pt.Y;
+                            if (pt.X < minX) minX = pt.X;
+                            if (pt.Y < minY) minY = pt.Y;
+                            if (pt.X > maxX) maxX = pt.X;
+                            if (pt.Y > maxY) maxY = pt.Y;
                         }
 
                         points.Add(new Point(minX, minY));
