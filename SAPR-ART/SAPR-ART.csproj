@@ -63,5 +63,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rectangle.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MainPrograme.resx">
+      <DependentUpon>MainPrograme.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

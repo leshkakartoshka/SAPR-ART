@@ -18,6 +18,9 @@ namespace TestTaskSAPR_ART
         public static Rectangle MainRectangle;
         public static ObjectId MainPolylineId;
 
+        public static Dictionary<string, int> colorDictionary = new Dictionary<string, int>
+        {{"чёрный",0},{"красный",1},{"жёлтый",2},{"зелёный",3},{"голубой",4},{"синий",5},{"фиолетовый",6},{"белый",7},{"серый",8},{"светло-серый",9}};
+
         private Label labelMainRectangle;
         private Label labelMainRectCoordRightX;
         private Label labelMainRectCoordRightY;
@@ -39,6 +42,8 @@ namespace TestTaskSAPR_ART
         private TextBox textBoxSecondRectCoordLeftY;
         private Label labelSecondRectCoordLeftY;
         private Label labelSecondRectCoordLeftX;
+        private ComboBox comboBoxChoiseColor;
+        private CheckedListBox checkedListBoxColor;
         private TextBox textBoxMainRectCoordRightY;
 
         public MainForm()
@@ -70,6 +75,8 @@ namespace TestTaskSAPR_ART
             this.textBoxSecondRectCoordLeftY = new System.Windows.Forms.TextBox();
             this.labelSecondRectCoordLeftY = new System.Windows.Forms.Label();
             this.labelSecondRectCoordLeftX = new System.Windows.Forms.Label();
+            this.comboBoxChoiseColor = new System.Windows.Forms.ComboBox();
+            this.checkedListBoxColor = new System.Windows.Forms.CheckedListBox();
             this.SuspendLayout();
             // 
             // labelMainRectangle
@@ -126,16 +133,16 @@ namespace TestTaskSAPR_ART
             // labelSecondaryRectangle
             // 
             this.labelSecondaryRectangle.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelSecondaryRectangle.Location = new System.Drawing.Point(22, 154);
+            this.labelSecondaryRectangle.Location = new System.Drawing.Point(22, 146);
             this.labelSecondaryRectangle.Name = "labelSecondaryRectangle";
-            this.labelSecondaryRectangle.Size = new System.Drawing.Size(254, 138);
+            this.labelSecondaryRectangle.Size = new System.Drawing.Size(237, 173);
             this.labelSecondaryRectangle.TabIndex = 6;
             this.labelSecondaryRectangle.Text = "Второстепенный прямоугольник";
             // 
             // labelSecondRectCoordRightX
             // 
             this.labelSecondRectCoordRightX.AutoSize = true;
-            this.labelSecondRectCoordRightX.Location = new System.Drawing.Point(157, 216);
+            this.labelSecondRectCoordRightX.Location = new System.Drawing.Point(132, 216);
             this.labelSecondRectCoordRightX.Name = "labelSecondRectCoordRightX";
             this.labelSecondRectCoordRightX.Size = new System.Drawing.Size(17, 13);
             this.labelSecondRectCoordRightX.TabIndex = 7;
@@ -144,7 +151,7 @@ namespace TestTaskSAPR_ART
             // labelSecondRectCoordRightY
             // 
             this.labelSecondRectCoordRightY.AutoSize = true;
-            this.labelSecondRectCoordRightY.Location = new System.Drawing.Point(157, 190);
+            this.labelSecondRectCoordRightY.Location = new System.Drawing.Point(132, 190);
             this.labelSecondRectCoordRightY.Name = "labelSecondRectCoordRightY";
             this.labelSecondRectCoordRightY.Size = new System.Drawing.Size(17, 13);
             this.labelSecondRectCoordRightY.TabIndex = 8;
@@ -152,21 +159,21 @@ namespace TestTaskSAPR_ART
             // 
             // textBoxSecondRectCoordRightX
             // 
-            this.textBoxSecondRectCoordRightX.Location = new System.Drawing.Point(180, 213);
+            this.textBoxSecondRectCoordRightX.Location = new System.Drawing.Point(155, 213);
             this.textBoxSecondRectCoordRightX.Name = "textBoxSecondRectCoordRightX";
             this.textBoxSecondRectCoordRightX.Size = new System.Drawing.Size(51, 20);
             this.textBoxSecondRectCoordRightX.TabIndex = 9;
             // 
             // textBoxSecondRectCoordRightY
             // 
-            this.textBoxSecondRectCoordRightY.Location = new System.Drawing.Point(180, 187);
+            this.textBoxSecondRectCoordRightY.Location = new System.Drawing.Point(155, 187);
             this.textBoxSecondRectCoordRightY.Name = "textBoxSecondRectCoordRightY";
             this.textBoxSecondRectCoordRightY.Size = new System.Drawing.Size(51, 20);
             this.textBoxSecondRectCoordRightY.TabIndex = 10;
             // 
             // buttonCrSecondRect
             // 
-            this.buttonCrSecondRect.Location = new System.Drawing.Point(109, 253);
+            this.buttonCrSecondRect.Location = new System.Drawing.Point(160, 280);
             this.buttonCrSecondRect.Name = "buttonCrSecondRect";
             this.buttonCrSecondRect.Size = new System.Drawing.Size(75, 23);
             this.buttonCrSecondRect.TabIndex = 11;
@@ -176,7 +183,7 @@ namespace TestTaskSAPR_ART
             // 
             // buttonOK
             // 
-            this.buttonOK.Location = new System.Drawing.Point(44, 295);
+            this.buttonOK.Location = new System.Drawing.Point(40, 332);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 12;
@@ -186,7 +193,7 @@ namespace TestTaskSAPR_ART
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(160, 295);
+            this.buttonCancel.Location = new System.Drawing.Point(139, 332);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 13;
@@ -227,14 +234,14 @@ namespace TestTaskSAPR_ART
             // 
             // textBoxSecondRectCoordLeftX
             // 
-            this.textBoxSecondRectCoordLeftX.Location = new System.Drawing.Point(87, 213);
+            this.textBoxSecondRectCoordLeftX.Location = new System.Drawing.Point(64, 213);
             this.textBoxSecondRectCoordLeftX.Name = "textBoxSecondRectCoordLeftX";
             this.textBoxSecondRectCoordLeftX.Size = new System.Drawing.Size(46, 20);
             this.textBoxSecondRectCoordLeftX.TabIndex = 18;
             // 
             // textBoxSecondRectCoordLeftY
             // 
-            this.textBoxSecondRectCoordLeftY.Location = new System.Drawing.Point(87, 187);
+            this.textBoxSecondRectCoordLeftY.Location = new System.Drawing.Point(64, 187);
             this.textBoxSecondRectCoordLeftY.Name = "textBoxSecondRectCoordLeftY";
             this.textBoxSecondRectCoordLeftY.Size = new System.Drawing.Size(46, 20);
             this.textBoxSecondRectCoordLeftY.TabIndex = 19;
@@ -242,7 +249,7 @@ namespace TestTaskSAPR_ART
             // labelSecondRectCoordLeftY
             // 
             this.labelSecondRectCoordLeftY.AutoSize = true;
-            this.labelSecondRectCoordLeftY.Location = new System.Drawing.Point(64, 190);
+            this.labelSecondRectCoordLeftY.Location = new System.Drawing.Point(41, 190);
             this.labelSecondRectCoordLeftY.Name = "labelSecondRectCoordLeftY";
             this.labelSecondRectCoordLeftY.Size = new System.Drawing.Size(17, 13);
             this.labelSecondRectCoordLeftY.TabIndex = 20;
@@ -251,15 +258,55 @@ namespace TestTaskSAPR_ART
             // labelSecondRectCoordLeftX
             // 
             this.labelSecondRectCoordLeftX.AutoSize = true;
-            this.labelSecondRectCoordLeftX.Location = new System.Drawing.Point(64, 216);
+            this.labelSecondRectCoordLeftX.Location = new System.Drawing.Point(41, 216);
             this.labelSecondRectCoordLeftX.Name = "labelSecondRectCoordLeftX";
             this.labelSecondRectCoordLeftX.Size = new System.Drawing.Size(17, 13);
             this.labelSecondRectCoordLeftX.TabIndex = 21;
             this.labelSecondRectCoordLeftX.Text = "X:";
             // 
+            // comboBoxChoiseColor
+            // 
+            this.comboBoxChoiseColor.FormattingEnabled = true;
+            this.comboBoxChoiseColor.Items.AddRange(new object[] {
+            "чёрный",
+            "красный",
+            "жёлтый",
+            "зелёный",
+            "голубой",
+            "синий",
+            "фиолетовый",
+            "белый",
+            "серый",
+            "светло-серый"});
+            this.comboBoxChoiseColor.Location = new System.Drawing.Point(160, 239);
+            this.comboBoxChoiseColor.Name = "comboBoxChoiseColor";
+            this.comboBoxChoiseColor.Size = new System.Drawing.Size(76, 21);
+            this.comboBoxChoiseColor.TabIndex = 22;
+            // 
+            // checkedListBoxColor
+            // 
+            this.checkedListBoxColor.FormattingEnabled = true;
+            this.checkedListBoxColor.Items.AddRange(new object[] {
+            "чёрный",
+            "красный",
+            "жёлтый",
+            "зелёный",
+            "голубой",
+            "синий",
+            "фиолетовый",
+            "белый",
+            "серый",
+            "светло-серый"});
+            this.checkedListBoxColor.Location = new System.Drawing.Point(29, 239);
+            this.checkedListBoxColor.Name = "checkedListBoxColor";
+            this.checkedListBoxColor.Size = new System.Drawing.Size(120, 64);
+            this.checkedListBoxColor.TabIndex = 23;
+            // 
             // MainForm
             // 
-            this.ClientSize = new System.Drawing.Size(304, 340);
+            this.ClientSize = new System.Drawing.Size(266, 368);
+            this.Controls.Add(this.checkedListBoxColor);
+            this.Controls.Add(this.comboBoxChoiseColor);
             this.Controls.Add(this.labelSecondRectCoordLeftX);
             this.Controls.Add(this.labelSecondRectCoordLeftY);
             this.Controls.Add(this.textBoxSecondRectCoordLeftY);
@@ -312,10 +359,10 @@ namespace TestTaskSAPR_ART
 
                 Polyline polyline = new Polyline(4);
 
-                polyline.AddVertexAt(0, new Point2d(MainRectangle.BotLeft.X, MainRectangle.BotLeft.Y), 0, 0, 0);
-                polyline.AddVertexAt(1, new Point2d(MainRectangle.BotLeft.X, MainRectangle.TopRight.Y), 0, 0, 0);
-                polyline.AddVertexAt(2, new Point2d(MainRectangle.TopRight.X, MainRectangle.TopRight.Y), 0, 0, 0);
-                polyline.AddVertexAt(3, new Point2d(MainRectangle.TopRight.X, MainRectangle.BotLeft.Y), 0, 0, 0);
+                polyline.AddVertexAt(0, new Point2d(MainRectangle.BotLeft.X, MainRectangle.BotLeft.Y), 0, 1, 1);
+                polyline.AddVertexAt(1, new Point2d(MainRectangle.BotLeft.X, MainRectangle.TopRight.Y), 0, 1, 1);
+                polyline.AddVertexAt(2, new Point2d(MainRectangle.TopRight.X, MainRectangle.TopRight.Y), 0, 1, 1);
+                polyline.AddVertexAt(3, new Point2d(MainRectangle.TopRight.X, MainRectangle.BotLeft.Y), 0, 1, 1);
                 polyline.Closed = true;
 
                 polyline.ColorIndex = 23;
@@ -352,20 +399,23 @@ namespace TestTaskSAPR_ART
                 BlockTableRecord btr = (BlockTableRecord)tr.GetObject(bt[BlockTableRecord.ModelSpace], OpenMode.ForWrite);
 
                 Polyline polyline = new Polyline(4);
-                polyline.AddVertexAt(0, new Point2d(secondRect.BotLeft.X, secondRect.BotLeft.Y), 0, 0, 0);
-                polyline.AddVertexAt(1, new Point2d(secondRect.BotLeft.X, secondRect.TopRight.Y), 0, 0, 0);
-                polyline.AddVertexAt(2, new Point2d(secondRect.TopRight.X, secondRect.TopRight.Y), 0, 0, 0);
-                polyline.AddVertexAt(3, new Point2d(secondRect.TopRight.X, secondRect.BotLeft.Y), 0, 0, 0);
+                polyline.AddVertexAt(0, new Point2d(secondRect.BotLeft.X, secondRect.BotLeft.Y), 0, 1, 1);
+                polyline.AddVertexAt(1, new Point2d(secondRect.BotLeft.X, secondRect.TopRight.Y), 0, 1, 1);
+                polyline.AddVertexAt(2, new Point2d(secondRect.TopRight.X, secondRect.TopRight.Y), 0, 1, 1);
+                polyline.AddVertexAt(3, new Point2d(secondRect.TopRight.X, secondRect.BotLeft.Y), 0, 1, 1);
                 polyline.Closed = true;
-                
+
                 Hatch hatch = new Hatch();
                 hatch.SetDatabaseDefaults();
-                hatch.SetHatchPattern(HatchPatternType.PreDefined, "SOLID");
-                hatch.ColorIndex = 110;
+                hatch.SetHatchPattern(HatchPatternType.PreDefined, "SOLID");              
                 btr.AppendEntity(hatch);
                 tr.AddNewlyCreatedDBObject(hatch, true);
 
-                polyline.ColorIndex = 1;
+                string selectedColorName = comboBoxChoiseColor.SelectedItem.ToString();
+                int colorIndex = colorDictionary[selectedColorName];
+                polyline.ColorIndex = colorIndex;
+                hatch.ColorIndex = colorIndex;
+
                 btr.AppendEntity(polyline);
                 tr.AddNewlyCreatedDBObject(polyline, true);
                 hatch.AppendLoop(HatchLoopTypes.Default, new ObjectIdCollection { polyline.ObjectId });
@@ -425,12 +475,23 @@ namespace TestTaskSAPR_ART
             }
         }
 
-        private static List<Point> GetSecondaryRectanglePoints()
+        private List<Point> GetSecondaryRectanglePoints()
         {
             List<Point> points = new List<Point>();
 
             Document doc = Autodesk.AutoCAD.ApplicationServices.Core.Application.DocumentManager.MdiActiveDocument;
             Database db = doc.Database;
+
+            List<int> selectedColorIndices = new List<int>();
+
+            for (int i = 0; i < checkedListBoxColor.Items.Count; i++)
+            {
+                string color = checkedListBoxColor.Items[i].ToString();
+                if (checkedListBoxColor.GetItemChecked(i) && colorDictionary.ContainsKey(color))
+                {
+                    selectedColorIndices.Add(colorDictionary[color]);
+                }
+            }
 
             using (Transaction tr = db.TransactionManager.StartTransaction())
             {
@@ -441,25 +502,28 @@ namespace TestTaskSAPR_ART
                 {
                     Entity entity = tr.GetObject(objId, OpenMode.ForRead) as Entity;
 
-                    if (entity is Polyline polyline && polyline.NumberOfVertices == 4 && polyline.Closed && polyline.ObjectId != MainPolylineId)
+                    for (int i = 0; i < 10; i++)
                     {
-                        double minX = double.MaxValue;
-                        double minY = double.MaxValue;
-                        double maxX = double.MinValue;
-                        double maxY = double.MinValue;
-
-                        for (int i = 0; i < polyline.NumberOfVertices; i++)
+                        if (entity is Polyline polyline && polyline.NumberOfVertices == 4 && polyline.Closed && polyline.ObjectId != MainPolylineId && selectedColorIndices.Contains(polyline.ColorIndex))
                         {
-                            Point2d pt = polyline.GetPoint2dAt(i);
+                            double minX = double.MaxValue;
+                            double minY = double.MaxValue;
+                            double maxX = double.MinValue;
+                            double maxY = double.MinValue;
 
-                            if (pt.X < minX) minX = pt.X;
-                            if (pt.Y < minY) minY = pt.Y;
-                            if (pt.X > maxX) maxX = pt.X;
-                            if (pt.Y > maxY) maxY = pt.Y;
+                            for (int j = 0; j < polyline.NumberOfVertices; j++)
+                            {
+                                Point2d pt = polyline.GetPoint2dAt(j);
+
+                                if (pt.X < minX) minX = pt.X;
+                                if (pt.Y < minY) minY = pt.Y;
+                                if (pt.X > maxX) maxX = pt.X;
+                                if (pt.Y > maxY) maxY = pt.Y;
+                            }
+
+                            points.Add(new Point(minX, minY));
+                            points.Add(new Point(maxX, maxY));
                         }
-
-                        points.Add(new Point(minX, minY));
-                        points.Add(new Point(maxX, maxY));
                     }
                 }
 
